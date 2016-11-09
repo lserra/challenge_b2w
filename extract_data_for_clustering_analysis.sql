@@ -1,0 +1,61 @@
+-- SALES DAY WITHOUT EVENTS (ONLY P8)
+SELECT 
+	dt.DATE AS DATE,
+	dt.WEEKDAY AS WEEKDAY,
+	dt.EVENT AS EVENT,
+	dp.PRODUCT AS PRODUCT,
+	SUM(fs.QTY_ORDER) AS QTY_ORDER
+FROM
+	((dw_ft_sales fs
+	JOIN dw_dim_time dt ON ((fs.SK_TIME = dt.SK_TIME)))
+	JOIN dw_dim_prod dp ON ((fs.SK_PROD = dp.SK_PROD)))
+GROUP BY dt.DATE , dt.WEEKDAY, dt.EVENT, dp.PRODUCT
+HAVING 
+	dt.EVENT = 'NO EVENT' AND
+    dp.PRODUCT = 'P8';
+
+-- SALES DAY WITH EVENTS (ONLY P8)
+SELECT 
+	dt.DATE AS DATE,
+	dt.WEEKDAY AS WEEKDAY,
+	dt.EVENT AS EVENT,
+	dp.PRODUCT AS PRODUCT,
+	SUM(fs.QTY_ORDER) AS QTY_ORDER
+FROM
+	((dw_ft_sales fs
+	JOIN dw_dim_time dt ON ((fs.SK_TIME = dt.SK_TIME)))
+	JOIN dw_dim_prod dp ON ((fs.SK_PROD = dp.SK_PROD)))
+GROUP BY dt.DATE , dt.WEEKDAY, dt.EVENT, dp.PRODUCT
+HAVING 
+	dt.EVENT <> 'NO EVENT' AND
+    dp.PRODUCT = 'P8';    
+
+-- SALES DAY WITH EVENTS (ALL PRODUCTS)
+SELECT 
+	dt.DATE AS DATE,
+	dt.WEEKDAY AS WEEKDAY,
+	dt.EVENT AS EVENT,
+	dp.PRODUCT AS PRODUCT,
+	SUM(fs.QTY_ORDER) AS QTY_ORDER
+FROM
+	((dw_ft_sales fs
+	JOIN dw_dim_time dt ON ((fs.SK_TIME = dt.SK_TIME)))
+	JOIN dw_dim_prod dp ON ((fs.SK_PROD = dp.SK_PROD)))
+GROUP BY dt.DATE , dt.WEEKDAY, dt.EVENT, dp.PRODUCT
+HAVING 
+	dt.EVENT = 'NO EVENT';    
+
+-- SALES DAY WITHOUT EVENTS (ALL PRODUCTS)
+SELECT 
+	dt.DATE AS DATE,
+	dt.WEEKDAY AS WEEKDAY,
+	dt.EVENT AS EVENT,
+	dp.PRODUCT AS PRODUCT,
+	SUM(fs.QTY_ORDER) AS QTY_ORDER
+FROM
+	((dw_ft_sales fs
+	JOIN dw_dim_time dt ON ((fs.SK_TIME = dt.SK_TIME)))
+	JOIN dw_dim_prod dp ON ((fs.SK_PROD = dp.SK_PROD)))
+GROUP BY dt.DATE , dt.WEEKDAY, dt.EVENT, dp.PRODUCT
+HAVING 
+	dt.EVENT <> 'NO EVENT';
