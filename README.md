@@ -1,2 +1,2 @@
 # challenge_b2w
-Challenge from B2W for a Vacancy
+Challenge B2W for a Vacancy
